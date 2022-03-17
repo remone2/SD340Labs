@@ -1,4 +1,10 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SD340Labs.Data;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<HotelContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HotelContext")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
