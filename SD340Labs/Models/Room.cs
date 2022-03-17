@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SD340Labs.Models
 {
@@ -14,5 +15,12 @@ namespace SD340Labs.Models
             Second,
             Third
         };
+
+        public int? PreviousClientId { get; set; }
+        [ForeignKey("PreviousClientId")]
+        public Client? PreviousClient { get; set; }
+        public int? CurrentClientId { get; set; }
+        [ForeignKey("CurrentClientId")]
+        public Client? CurrentClient { get; set; }
     }
 }

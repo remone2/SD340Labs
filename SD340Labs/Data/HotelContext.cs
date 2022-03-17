@@ -18,5 +18,6 @@ namespace SD340Labs.Data
         public DbSet<SD340Labs.Models.Client> Client { get; set; }
         public DbSet<SD340Labs.Models.Room> Room { get; set; }
         public DbSet<SD340Labs.Models.PhoneNumberCheckViewModel> PhoneNumberCheckViewModel { get; set; }
+        public DbSet<SD340Labs.Models.Credit> Credit { get; set; }
     }
 }

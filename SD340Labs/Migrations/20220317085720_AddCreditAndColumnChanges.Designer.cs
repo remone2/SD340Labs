@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SD340Labs.Data;
 
@@ -11,9 +12,10 @@ using SD340Labs.Data;
 namespace SD340Labs.Migrations
 {
     [DbContext(typeof(HotelContext))]
-    partial class HotelContextModelSnapshot : ModelSnapshot
+    [Migration("20220317085720_AddCreditAndColumnChanges")]
+    partial class AddCreditAndColumnChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,21 +110,7 @@ namespace SD340Labs.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CurrentClientId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PreviousClientId")
-                        .HasColumnType("int");
-
                     b.HasKey("RoomNumber");
-
-                    b.HasIndex("CurrentClientId")
-                        .IsUnique()
-                        .HasFilter("[CurrentClientId] IS NOT NULL");
-
-                    b.HasIndex("PreviousClientId")
-                        .IsUnique()
-                        .HasFilter("[PreviousClientId] IS NOT NULL");
 
                     b.ToTable("Room");
                 });
@@ -138,30 +126,9 @@ namespace SD340Labs.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("SD340Labs.Models.Room", b =>
-                {
-                    b.HasOne("SD340Labs.Models.Client", "CurrentClient")
-                        .WithOne("CurrentRoom")
-                        .HasForeignKey("SD340Labs.Models.Room", "CurrentClientId");
-
-                    b.HasOne("SD340Labs.Models.Client", "PreviousClient")
-                        .WithOne("PreviousRoom")
-                        .HasForeignKey("SD340Labs.Models.Room", "PreviousClientId");
-
-                    b.Navigation("CurrentClient");
-
-                    b.Navigation("PreviousClient");
-                });
-
             modelBuilder.Entity("SD340Labs.Models.Client", b =>
                 {
                     b.Navigation("Credits");
-
-                    b.Navigation("CurrentRoom")
-                        .IsRequired();
-
-                    b.Navigation("PreviousRoom")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
